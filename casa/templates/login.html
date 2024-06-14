@@ -1,23 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
     <title>Iniciar sesión</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
 </head>
 <body>
-    <h2>Iniciar sesión</h2>
-
     <form method="post">
         {% csrf_token %}
-        <label for="username">Nombre de usuario:</label><br>
-        <input type="text" id="username" name="username" required><br>
-        <label for="password">Contraseña:</label><br>
-        <input type="password" id="password" name="password" required><br>
+        <h2>Iniciar sesión</h2>
+        <input type="text" id="username" name="username" placeholder="Nombre de usuario" required>
+        <input type="password" id="password" name="password" placeholder="Contraseña" required>
         <input type="submit" value="Iniciar sesión">
+        {% if error %}
+        <div class="alert">
+            {{ error }}
+        </div>
+        {% endif %}
     </form>
-    {% if error %}
-    <div class="alert alert-danger">
-        {{ error }}
-    </div>
-    {% endif %}
 </body>
+
 </html>
