@@ -6,12 +6,27 @@ body {
 }
 
 .header {
-    background-color: #333;
+    background-color: #007BFF;
     color: #fff;
-    padding: 10px;
+    padding: 20px;
     text-align: center;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2em;
 }
 
 .content {
     margin: 15px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+}
+
+.content p {
+    font-size: 1.2em;
+    line-height: 1.6;
 }
