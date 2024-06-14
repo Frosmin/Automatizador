@@ -6,11 +6,11 @@ body {
 }
 
 .header {
-    background-color: #007BFF;
-    color: #fff;
+    background-color: #1a9e30;
+    color: #ececec;
     padding: 20px;
     text-align: center;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
 }
 
 .header h1 {
