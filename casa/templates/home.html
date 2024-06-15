@@ -1,12 +1,14 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página de inicio</title>
     <link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
 </head>
+
 <body>
     <div class="header">
         <h1>Bienvenido a la página de inicio</h1>
@@ -15,5 +17,28 @@
         <h2>Hola</h2>
         <p>Esta es la página de inicio.</p>
     </div>
+    <div class="upload">
+        <h2>Subir archivo</h2>
+        <form action="{% url 'upload_foto' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="foto">
+            <input type="text" name="numero" placeholder="Introduce un número">
+            <button type="submit">Subir</button>
+        </form>
+    </div>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+            {% endfor %}
+    </ul>
+    {% endif %}
+    <h2>Muestre una foto</h2>
+    <form action="{% url 'mostrar_foto' %}" method="get">
+        <input type="text" name="numero" placeholder="Introduce un número de casa">
+        <button type="submit">Mostrar foto</button>
+    </form>
+    <img src="data:image/jpeg;base64,{{ foto_base64 }}" alt="Foto de la casa">
 </body>
+
 </html>

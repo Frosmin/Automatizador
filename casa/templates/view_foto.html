@@ -1,0 +1,10 @@
+{% extends "home.html" %}
+
+{% block content %}
+  <h2>Foto</h2>
+  {% if casa.foto %}
+    <img src="{{ casa.foto.url }}" alt="Foto de la casa">
+  {% else %}
+    <p>No hay foto disponible.</p>
+  {% endif %}
+{% endblock %}
