@@ -15,5 +15,13 @@
         <h2>Hola</h2>
         <p>Esta es la página de inicio.</p>
     </div>
+    <div class="upload">
+        <h2>Subir archivo</h2>
+        <form action="{% url 'upload_foto' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="foto">
+            <button type="submit">Subir</button>
+        </form>
+    </div>
 </body>
 </html>

@@ -2,6 +2,10 @@
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
+from .forms import CasaForm
+from casa.models.casaModel import Casa
+from django.contrib import messages
+
 
 # Create your views here.
 def home(request):
@@ -20,3 +24,13 @@ def login_view(request):
     else:
         return render(request, 'login.html')
 
+def upload_foto(request):
+    if request.method == 'POST':
+        form = CasaForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Foto subida correctamente.')
+            return redirect('home')
+    else:
+        form = CasaForm()
+    return render(request, 'upload.html', {'form': form})
