@@ -5,11 +5,15 @@ from django.shortcuts import render, redirect
 from .forms import CasaForm
 from casa.models.casaModel import Casa
 from django.contrib import messages
+from django.core.exceptions import ValidationError
+import base64
+from django.http import Http404
 
 
 # Create your views here.
 def home(request):
-    return render(request, 'home.html')
+    casa = Casa.objects.last()  # obtiene la última casa añadida
+    return render(request, 'home.html', {'casa': casa})
 
 def login_view(request):
     if request.method == 'POST':
@@ -26,11 +30,33 @@ def login_view(request):
 
 def upload_foto(request):
     if request.method == 'POST':
-        form = CasaForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Foto subida correctamente.')
-            return redirect('home')
-    else:
-        form = CasaForm()
-    return render(request, 'upload.html', {'form': form})
+        numero = request.POST['numero']
+        foto_file = request.FILES['foto']
+
+        # Validar que el archivo es una imagen
+        if not foto_file.content_type.startswith('image/'):
+            raise ValidationError('El archivo cargado no es una imagen')
+
+        # Leer el archivo en chunks para evitar problemas de memoria
+        foto = b''
+        for chunk in foto_file.chunks():
+            foto += chunk
+
+        casa = Casa(numero=numero, foto=foto)
+        casa.save()
+    return render(request, 'upload.html')
+
+
+def mostrar_foto(request):
+    numero = request.GET.get('numero')
+    casa = Casa.objects.filter(numero=numero).first()
+
+    if not casa:
+        raise Http404("Casa no encontrada")
+
+    # Convertir la imagen a base64
+    foto_base64 = base64.b64encode(casa.foto).decode('utf-8')
+
+    return render(request, 'home.html', {'casa': casa, 'foto_base64': foto_base64})
+
+
