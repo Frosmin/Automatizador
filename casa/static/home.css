@@ -24,48 +24,80 @@ body {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .content h2 {
     font-size: 1.5em;
     border-bottom: 1px solid #ddd;
     padding-bottom: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .content p {
     font-size: 1.2em;
     line-height: 1.6;
     margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .upload, .messages, img {
-    margin-top: 20px;
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 form {
     display: flex;
     flex-direction: column;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 form input[type="text"], form input[type="file"] {
     margin-bottom: 10px;
     padding: 10px;
+    width: 30%;
     border-radius: 4px;
     border: 1px solid #ddd;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 form button {
     cursor: pointer;
-    padding: 10px 20px;
+    padding: 10px ;
+    width: 30%;
     border-radius: 4px;
     border: none;
     background-color: #333;
     color: #fff;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .messages {
     list-style-type: none;
     padding: 0;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .messages li {
@@ -73,4 +105,12 @@ form button {
     border-radius: 4px;
     margin-bottom: 10px;
     background-color: #ffdd57;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
 }
