@@ -114,3 +114,30 @@ form button {
 h2 {
     text-align: center;
 }
+
+
+
+.download-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #008CBA; /* Azul */
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.download-button:hover {
+    background-color: #005c7a; /* Azul oscuro al pasar el ratón */
+}
+
+.parent-element {
+    text-align: center;
+}
+
+.center-button {
+    display: flex;
+    justify-content: center;
+}
