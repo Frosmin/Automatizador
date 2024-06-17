@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from .forms import CasaForm
+from ..forms import CasaForm
 from casa.models.casaModel import Casa
 from django.contrib import messages
 from django.core.exceptions import ValidationError
