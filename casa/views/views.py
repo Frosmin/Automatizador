@@ -8,6 +8,9 @@ from django.contrib import messages
 from django.core.exceptions import ValidationError
 import base64
 from django.http import Http404
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+import io
 
 
 # Create your views here.
@@ -60,3 +63,16 @@ def mostrar_foto(request):
     return render(request, 'home.html', {'casa': casa, 'foto_base64': foto_base64})
 
 
+# def some_view(request):
+#     # Crea un archivo PDF en la memoria
+#     buffer = io.BytesIO()
+#     p = canvas.Canvas(buffer)
+
+#     # Aquí va el código para generar tu PDF...
+
+#     p.showPage()
+#     p.save()
+
+#     # Crea una respuesta con el archivo PDF
+#     buffer.seek(0)
+#     return FileResponse(buffer, as_attachment=True, filename='nombre_del_archivo.pdf')
