@@ -3,28 +3,41 @@ from reportlab.pdfgen import canvas
 from reportlab.lib.utils import ImageReader
 from casa.models.casaModel import Casa
 import io
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 
 def some_view(request):
-    # Crea un objeto de archivo PDF en memoria
     buffer = io.BytesIO()
 
     # Crea el PDF
-    p = canvas.Canvas(buffer)
+    doc = SimpleDocTemplate(buffer, pagesize=letter)
+
+    # Contenedor para los elementos del 'Flowable'
+    elements = []
+
+    # Estilos de párrafo
+    styles = getSampleStyleSheet()
+
+    # Agrega algunos elementos de 'Flowable'
+    elements.append(Paragraph('Mi Título', styles['Title']))
+    elements.append(Spacer(1, 12))
+    elements.append(Paragraph('Subtítulo', styles['Heading2']))
+    elements.append(Spacer(1, 12))
+    elements.append(Paragraph('Texto del informe...', styles['BodyText']))
 
     # Obtiene la imagen de la base de datos
-    # Esto es solo un ejemplo, necesitarás ajustarlo a tu modelo y método de obtención de la imagen
     image_model = Casa.objects.get(id=1)
-    image_path = image_model.foto
+    image_data = image_model.foto
 
-    # Crea un ImageReader con la ruta de la imagen
-    image = ImageReader(io.BytesIO(image_path))
+    # Crea un ImageReader con los datos de la imagen
+    image = ImageReader(io.BytesIO(image_data))
 
-    # Dibuja la imagen en el PDF (las coordenadas son x, y, ancho, alto)
-    p.drawImage(image, 100, 100, 200, 200)
+    # Agrega la imagen al PDF
+    elements.append(image)
 
-    p.drawString(100, 100, "Hello world.")
-    p.showPage()
-    p.save()
+    # Construye el PDF
+    doc.build(elements)
 
     # Crea una respuesta con el archivo PDF
     buffer.seek(0)
