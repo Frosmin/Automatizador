@@ -5,6 +5,13 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet
 import lorem
+from django.http import FileResponse
+from casa.models.casaModel import Casa
+import io
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
+from reportlab.lib.styles import getSampleStyleSheet
+import lorem
 
 def some_view(request):
     # Crea un objeto de archivo PDF en memoria
