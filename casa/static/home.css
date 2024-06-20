@@ -48,6 +48,21 @@ body {
     margin-right: auto;
 }
 
+
+.casa{
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.2);
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+
 .upload, .messages, img {
     margin-top: 10px;
     display: block;
@@ -137,7 +152,7 @@ h2 {
     text-align: center;
 }
 
-.center-button {
+.descargar_pdf{
     display: flex;
     justify-content: center;
 }

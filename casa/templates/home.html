@@ -13,10 +13,35 @@
     <div class="header">
         <h1>Bienvenido a la página de inicio</h1>
     </div>
+
     <div class="content">
-        <h2>Hola</h2>
+        <h2>Hola juan</h2>
         <p>Esta es la página de inicio.</p>
     </div>
+    
+
+    <!-- <div class = "casa">
+        <form method="post" action="{% url 'some_view' %}">
+            <h1>Selecione el numero de casa</h1>
+            <input type="text" name="numero" placeholder="Introduce un número de casa"> 
+            <button type="submit">Elegir</button>
+        </form>
+    </div>
+    
+    <div class = "descargar_pdf">
+        <a href="{% url 'some_view' %}" class="download-button">Descargar PDF</a>
+    </div> -->
+    
+    <form method="post" action="{% url 'some_view' %}">
+        {% csrf_token %}
+        <h1>Seleccione el número de casa</h1>
+        <input type="text" name="numero" placeholder="Introduce un número de casa"> 
+        <button type="submit">Elegir</button>
+        <button type="submit" class="download-button">Descargar PDF</button>
+    </form>
+
+
+    
     <div class="upload">
         <h2>Subir archivo</h2>
         <form action="{% url 'upload_foto' %}" method="post" enctype="multipart/form-data">
@@ -42,9 +67,6 @@
     <img src="data:image/jpeg;base64,{{ foto_base64 }}" alt="Foto de la casa">
 
 
-    <div class = "center-button">
-        <a href="{% url 'some_view' %}" class="download-button">Descargar PDF</a>
-    </div>
     
 
 
