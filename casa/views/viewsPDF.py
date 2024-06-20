@@ -70,7 +70,7 @@ def some_view(request):
 
         # Imagen
         try:
-            image_model = Casa.objects.get(numero=casa)
+              image_model = casa
         except Casa.DoesNotExist:
             return HttpResponse('Casa no encontrada')
         image_path = image_model.foto
