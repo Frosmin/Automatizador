@@ -13,24 +13,26 @@
     <div class="header">
         <h1>Bienvenido a la página de inicio</h1>
     </div>
-
++
     <div class="content">
-        <h2>Hola juan</h2>
+        <h2>Hola</h2>
         <p>Esta es la página de inicio.</p>
     </div>
-    
+<!-- bueno -->
+    <form method="post" action="{% url 'seleccionar_casa' %}">
+        {% csrf_token %}
+        <h1>Seleccione el número de casa</h1>
+        <input type="text" name="numero" placeholder="Introduce un número de casa"> 
+        <button type="submit">Elegir</button>
+    </form>
 
-    <!-- <div class = "casa">
-        <form method="post" action="{% url 'some_view' %}">
-            <h1>Selecione el numero de casa</h1>
-            <input type="text" name="numero" placeholder="Introduce un número de casa"> 
-            <button type="submit">Elegir</button>
-        </form>
-    </div>
-    
-    <div class = "descargar_pdf">
-        <a href="{% url 'some_view' %}" class="download-button">Descargar PDF</a>
-    </div> -->
+
+
+
+
+
+
+
     
     <form method="post" action="{% url 'some_view' %}">
         {% csrf_token %}
@@ -67,9 +69,26 @@
     <img src="data:image/jpeg;base64,{{ foto_base64 }}" alt="Foto de la casa">
 
 
+
+    <form method="post" action="{% url 'subir_cemento' %}">
+        {% csrf_token %}
+        <h1>Cemento</h1>
+        <input type="text" name="cemento" placeholder="Introduce un precio del cemento"> 
+        <button type="submit">Subir</button>
+    </form>
     
 
-
+<!-- 
+    <form method="post" action="{% url 'home' %}">
+        {% csrf_token %}
+        <h1>Seleccione el número de casa</h1>
+        <select name="numero">
+            {% for casa in casas %}
+                <option value="{{ casa.numero }}">{{ casa.numero }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit" class="download-button">Descargar PDF</button>
+    </form> -->
 
 </body>
 

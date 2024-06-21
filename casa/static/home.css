@@ -156,3 +156,7 @@ h2 {
     display: flex;
     justify-content: center;
 }
+/* margen parte inferior */
+body {
+    margin-bottom: 200px; 
+}

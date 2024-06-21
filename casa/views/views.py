@@ -11,12 +11,20 @@ from django.http import Http404
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
 import io
+from django import forms
 
 
 # Create your views here.
 def home(request):
-    casa = Casa.objects.last()  # obtiene la última casa añadida
-    return render(request, 'home.html', {'casa': casa})
+    casas = Casa.objects.all()  # Obtiene todas las casas
+    return render(request, 'home.html', {'casas': casas})
+
+
+
+class CasaForm(forms.Form):
+    numero = forms.ModelChoiceField(queryset=Casa.objects.all().order_by('numero'))
+
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -33,7 +41,7 @@ def login_view(request):
 
 def upload_foto(request):
     if request.method == 'POST':
-        numero = request.POST['numero']
+        numero = request.session.get('numero_casa')
         foto_file = request.FILES['foto']
 
         # Validar que el archivo es una imagen
@@ -50,6 +58,34 @@ def upload_foto(request):
     return render(request, 'upload.html')
 
 
+
+
+# def upload_foto(request):
+#     if request.method == 'POST':
+#         numero = request.session.get('numero_casa')
+#         if not numero:
+#             raise Http404("No se ha seleccionado ninguna casa")
+
+#         foto_file = request.FILES['foto']
+
+#         # Validar que el archivo es una imagen
+#         if not foto_file.content_type.startswith('image/'):
+#             raise ValidationError('El archivo cargado no es una imagen')
+
+#         # Leer el archivo en chunks para evitar problemas de memoria
+#         foto = b''
+#         for chunk in foto_file.chunks():
+#             foto += chunk
+
+#         casa = Casa.objects.filter(numero=numero).first()
+#         if not casa:
+#             raise Http404("Casa no encontrada")
+
+#         casa.foto = foto
+#         casa.save()
+#     return render(request, 'upload.html')
+
+
 def mostrar_foto(request):
     numero = request.GET.get('numero')
     casa = Casa.objects.filter(numero=numero).first()
@@ -63,16 +99,25 @@ def mostrar_foto(request):
     return render(request, 'home.html', {'casa': casa, 'foto_base64': foto_base64})
 
 
-# def some_view(request):
-#     # Crea un archivo PDF en la memoria
-#     buffer = io.BytesIO()
-#     p = canvas.Canvas(buffer)
+def subir_cemento(request):
+    if request.method == 'POST':
+        numero = request.session.get('numero_casa')   #numerp de la secion :D
+        cemento = request.POST['cemento']
+        
+        casa = Casa.objects.filter(numero=numero).first()
+        
+        if not casa:
+            raise Http404("Casa no encontrada")
+        
+        casa.cemento = cemento
+        casa.save()
+    return render(request,'home.html')
 
-#     # Aquí va el código para generar tu PDF...
 
-#     p.showPage()
-#     p.save()
 
-#     # Crea una respuesta con el archivo PDF
-#     buffer.seek(0)
-#     return FileResponse(buffer, as_attachment=True, filename='nombre_del_archivo.pdf')
+
+def seleccionar_casa(request):
+    if request.method == 'POST':
+        numero = request.POST['numero']
+        request.session['numero_casa'] = numero
+    return render(request, 'home.html')
