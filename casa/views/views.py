@@ -87,7 +87,7 @@ def upload_foto(request):
 
 
 def mostrar_foto(request):
-    numero = request.GET.get('numero')
+    numero = request.session.get('numero_casa')
     casa = Casa.objects.filter(numero=numero).first()
 
     if not casa:
@@ -99,6 +99,8 @@ def mostrar_foto(request):
     return render(request, 'home.html', {'casa': casa, 'foto_base64': foto_base64})
 
 
+
+#buenos
 def subir_cemento(request):
     if request.method == 'POST':
         numero = request.session.get('numero_casa')   #numerp de la secion :D

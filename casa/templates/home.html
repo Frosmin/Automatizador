@@ -18,6 +18,8 @@
         <h2>Hola</h2>
         <p>Esta es la página de inicio.</p>
     </div>
+
+
 <!-- bueno -->
     <form method="post" action="{% url 'seleccionar_casa' %}">
         {% csrf_token %}
@@ -36,9 +38,7 @@
     
     <form method="post" action="{% url 'some_view' %}">
         {% csrf_token %}
-        <h1>Seleccione el número de casa</h1>
-        <input type="text" name="numero" placeholder="Introduce un número de casa"> 
-        <button type="submit">Elegir</button>
+        <h1>Descargar PDF</h1>
         <button type="submit" class="download-button">Descargar PDF</button>
     </form>
 
@@ -63,7 +63,6 @@
     
     <h2>Muestre una foto</h2>
     <form action="{% url 'mostrar_foto' %}" method="get">
-        <input type="text" name="numero" placeholder="Introduce un número de casa">
         <button type="submit">Mostrar foto</button>
     </form>
     <img src="data:image/jpeg;base64,{{ foto_base64 }}" alt="Foto de la casa">

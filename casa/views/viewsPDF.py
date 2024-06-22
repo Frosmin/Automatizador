@@ -16,7 +16,6 @@ def some_view(request):
     
     if request.method == 'POST':
         numero_casa = request.POST.get('numero')
-        request.session['numero_casa'] = numero_casa
         return redirect('some_view')
     else:
         numero_casa = request.session.get('numero_casa', None)
