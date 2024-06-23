@@ -14,4 +14,9 @@ urlpatterns = [
 
     path('subir_cemento', views.subir_cemento, name='subir_cemento'),
     path('seleccionar_casa/', views.seleccionar_casa, name='seleccionar_casa'),
+    path('subir_ladrillo/', views.subir_ladrillo, name='subir_ladrillo'),
+    
+    
+    
+    path('mostrar/', views.mostrar, name='mostrar'),
 ]

@@ -12,6 +12,7 @@ from django.http import FileResponse
 from reportlab.pdfgen import canvas
 import io
 from django import forms
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -100,7 +101,7 @@ def mostrar_foto(request):
 
 
 
-#buenos
+#buenos  Subir
 def subir_cemento(request):
     if request.method == 'POST':
         numero = request.session.get('numero_casa')   #numerp de la secion :D
@@ -116,10 +117,37 @@ def subir_cemento(request):
     return render(request,'home.html')
 
 
+def subir_ladrillo(request):
+    if request.method == 'POST':
+        numero = request.session.get('numero_casa')   #numerp de la secion :D
+        ladrillo_nuevo = request.POST['ladriillo']
+        
+        casa = Casa.objects.filter(numero=numero).first()
+        
+        if not casa:
+            raise Http404("Casa no encontrada")
+        
+        casa.ladrillo = ladrillo_nuevo
+        casa.save()
+    return render(request,'home.html')
 
 
 def seleccionar_casa(request):
     if request.method == 'POST':
         numero = request.POST['numero']
         request.session['numero_casa'] = numero
-    return render(request, 'home.html')
+    casas = Casa.objects.all()  # Obtiene todas las casas
+    return render(request, 'home.html', {'casas': casas})
+
+
+
+
+
+
+
+def mostrar(request):
+    if request.method == 'POST':
+        numeros_de_casas = Casa.objects.all().values_list('numero', flat=True)
+        return render(request, 'home.html', {'numeros_de_casas': numeros_de_casas})
+    else:
+        return render(request, 'home.html')
