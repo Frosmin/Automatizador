@@ -43,6 +43,7 @@ def login_view(request):
 def upload_foto(request):
     if request.method == 'POST':
         numero = request.session.get('numero_casa')
+        casas = Casa.objects.all()  # Obtiene todas las casas
         foto_file = request.FILES['foto']
 
         # Validar que el archivo es una imagen
@@ -56,7 +57,7 @@ def upload_foto(request):
 
         casa = Casa(numero=numero, foto=foto)
         casa.save()
-    return render(request, 'upload.html')
+    return render(request, 'upload.html',{'casas': casas})
 
 
 
@@ -90,6 +91,7 @@ def upload_foto(request):
 def mostrar_foto(request):
     numero = request.session.get('numero_casa')
     casa = Casa.objects.filter(numero=numero).first()
+    casas = Casa.objects.all()  # Obtiene todas las casas
 
     if not casa:
         raise Http404("Casa no encontrada")
@@ -97,7 +99,7 @@ def mostrar_foto(request):
     # Convertir la imagen a base64
     foto_base64 = base64.b64encode(casa.foto).decode('utf-8')
 
-    return render(request, 'home.html', {'casa': casa, 'foto_base64': foto_base64})
+    return render(request, 'home.html', {'casas': casas,'casa': casa, 'foto_base64': foto_base64})
 
 
 
@@ -106,6 +108,7 @@ def subir_cemento(request):
     if request.method == 'POST':
         numero = request.session.get('numero_casa')   #numerp de la secion :D
         cemento = request.POST['cemento']
+        casas = Casa.objects.all()  # Obtiene todas las casas
         
         casa = Casa.objects.filter(numero=numero).first()
         
@@ -114,13 +117,14 @@ def subir_cemento(request):
         
         casa.cemento = cemento
         casa.save()
-    return render(request,'home.html')
+    return render(request,'home.html', {'casas': casas})
 
 
 def subir_ladrillo(request):
     if request.method == 'POST':
         numero = request.session.get('numero_casa')   #numerp de la secion :D
         ladrillo_nuevo = request.POST['ladriillo']
+        casas = Casa.objects.all()  # Obtiene todas las casas
         
         casa = Casa.objects.filter(numero=numero).first()
         
@@ -129,7 +133,7 @@ def subir_ladrillo(request):
         
         casa.ladrillo = ladrillo_nuevo
         casa.save()
-    return render(request,'home.html')
+    return render(request,'home.html',{casas: casas})
 
 
 def seleccionar_casa(request):
@@ -147,7 +151,9 @@ def seleccionar_casa(request):
 
 def mostrar(request):
     if request.method == 'POST':
+        casas = Casa.objects.all()  # Obtiene todas las casas
         numeros_de_casas = Casa.objects.all().values_list('numero', flat=True)
-        return render(request, 'home.html', {'numeros_de_casas': numeros_de_casas})
+        return render(request, 'home.html', {'numeros_de_casas': numeros_de_casas, 'casas': casas})
+        
     else:
-        return render(request, 'home.html')
+        return render(request, 'home.html',{'casas': casas})

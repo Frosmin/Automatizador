@@ -15,8 +15,10 @@ def some_view(request):
     
     
     if request.method == 'POST':
+        casas = Casa.objects.all()  # Obtiene todas las casas
         numero_casa = request.POST.get('numero')
         return redirect('some_view')
+        
     else:
         numero_casa = request.session.get('numero_casa', None)
         if numero_casa is None:
