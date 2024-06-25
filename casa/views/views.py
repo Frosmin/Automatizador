@@ -1,25 +1,18 @@
 
-from django.http import HttpResponse
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
-from ..forms import CasaForm
 from casa.models.casaModel import Casa
-from django.contrib import messages
 from django.core.exceptions import ValidationError
 import base64
 from django.http import Http404
-from django.http import FileResponse
-from reportlab.pdfgen import canvas
-import io
 from django import forms
-from django.http import JsonResponse
+
 
 
 # Create your views here.
 def home(request):
     casas = Casa.objects.all()  # Obtiene todas las casas
     return render(request, 'home.html', {'casas': casas})
-
 
 
 class CasaForm(forms.Form):
@@ -58,34 +51,6 @@ def upload_foto(request):
         casa = Casa(numero=numero, foto=foto)
         casa.save()
     return render(request, 'upload.html',{'casas': casas})
-
-
-
-
-# def upload_foto(request):
-#     if request.method == 'POST':
-#         numero = request.session.get('numero_casa')
-#         if not numero:
-#             raise Http404("No se ha seleccionado ninguna casa")
-
-#         foto_file = request.FILES['foto']
-
-#         # Validar que el archivo es una imagen
-#         if not foto_file.content_type.startswith('image/'):
-#             raise ValidationError('El archivo cargado no es una imagen')
-
-#         # Leer el archivo en chunks para evitar problemas de memoria
-#         foto = b''
-#         for chunk in foto_file.chunks():
-#             foto += chunk
-
-#         casa = Casa.objects.filter(numero=numero).first()
-#         if not casa:
-#             raise Http404("Casa no encontrada")
-
-#         casa.foto = foto
-#         casa.save()
-#     return render(request, 'upload.html')
 
 
 def mostrar_foto(request):
