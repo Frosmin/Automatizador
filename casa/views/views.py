@@ -68,7 +68,7 @@ def mostrar_foto(request):
 
 
 
-#buenos  Subir
+#buenos  Subir materiales
 def subir_cemento(request):
     if request.method == 'POST':
         numero = request.session.get('numero_casa')   #numerp de la secion :D
@@ -88,7 +88,7 @@ def subir_cemento(request):
 def subir_ladrillo(request):
     if request.method == 'POST':
         numero = request.session.get('numero_casa')   #numerp de la secion :D
-        ladrillo_nuevo = request.POST['ladriillo']
+        ladrillo_nuevo = request.POST['ladrillo']
         casas = Casa.objects.all()  # Obtiene todas las casas
         
         casa = Casa.objects.filter(numero=numero).first()
@@ -107,11 +107,6 @@ def seleccionar_casa(request):
         request.session['numero_casa'] = numero
     casas = Casa.objects.all()  # Obtiene todas las casas
     return render(request, 'home.html', {'casas': casas})
-
-
-
-
-
 
 
 def mostrar(request):
