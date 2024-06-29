@@ -91,7 +91,6 @@ def some_view(request):
         ])
         
         table.setStyle(table_style)
-        
         elements.append(table)
         
         #sirve para loreipsum
