@@ -5,10 +5,10 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet
 import lorem
-from django.http import FileResponse
-from casa.models.casaModel import Casa
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
+from reportlab.platypus import Table, TableStyle
+from reportlab.lib import colors
 
 @csrf_exempt
 def some_view(request):
@@ -57,17 +57,50 @@ def some_view(request):
         elements.append(Spacer(1, 12))
 
         lore = lorem.text()+ lorem.text()+lorem.text()+ lorem.text()+lorem.text()+ lorem.text()+lorem.text()+ lorem.text()+lorem.text()+ lorem.text()
+        
+        
         # Texto
-        # text = Paragraph("""Aquí va el texto del informe..               
-        #                  """, styles['BodyText'])
+        text1 = Paragraph("""Aquí va el texto del informe..    
+                         
+                         
+                                    
+                         """, styles['BodyText'])
+        elements.append(text1)
         
         
+        # Datos de la tabla
+        data = [
+            ['Header 1', 'Header 2', 'Header 3'],  # Encabezados
+            ['Row 1', 'Example 1', 'Example 2'],   # Primera fila
+            ['Row 2', 'Example 3', 'Example 4'],   # Segunda fila
+            # Añade más filas según sea necesario
+        ]
         
-        text = Paragraph(lore, styles['BodyText']) ##texto de prueba 
-        elements.append(text)
+                # Crea la tabla
+        table = Table(data)
+
+        # Estilo de la tabla
+        table_style = TableStyle([
+            ('BACKGROUND', (0, 0), (-1, 0), colors.grey),  # Color de fondo para los encabezados
+            ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),  # Color del texto para los encabezados
+            ('ALIGN', (0, 0), (-1, -1), 'CENTER'),  # Alineación del texto
+            ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),  # Fuente de los encabezados
+            ('BOTTOMPADDING', (0, 0), (-1, 0), 12),  # Padding inferior para los encabezados
+            ('GRID', (0, 0), (-1, -1), 1, colors.black),  # Bordes de la tabla
+            # Añade más estilos según sea necesario
+        ])
+        
+        table.setStyle(table_style)
+        
+        elements.append(table)
+        
+        #sirve para loreipsum
+        # texto = Paragraph(text1, styles['BodyText']) ##texto de prueba 
+        # elements.append(texto)
 
         # Espacio
         elements.append(Spacer(1, 12))
+        
 
         # Imagen
         try:
