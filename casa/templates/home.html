@@ -106,6 +106,13 @@
             <input type="text" name="ladrillo" placeholder="Introduce un precio del ladrillo">
             <button type="submit">Subir</button>
         </form>
+
+        <form method="post" action="{% url 'subir_ladrillo' %}" class="formulario_material">
+            {% csrf_token %}
+            <h1>Ladrillo</h1>
+            <input type="text" name="ladrillo" placeholder="Introduce un precio del ladrillo">
+            <button type="submit">Subir</button>
+        </form>
     </div>
 
 </body>
