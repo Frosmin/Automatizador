@@ -27,7 +27,9 @@ def some_view(request):
         if casa is None:
             return HttpResponse('No existe una casa con ese número')
 
-        
+       #revisar
+        ladrillo = casa.Ladrillo.objects.filter(numero=numero_casa).first()
+                
         
         
         # Crea un objeto de archivo PDF en memoria
@@ -56,7 +58,7 @@ def some_view(request):
         
         elements.append(Spacer(1, 12))
 
-        lore = lorem.text()+ lorem.text()+lorem.text()+ lorem.text()+lorem.text()+ lorem.text()+lorem.text()+ lorem.text()+lorem.text()+ lorem.text()
+        # lore = lorem.text()+ lorem.text()+lorem.text()+ lorem.text()+lorem.text()+ lorem.text()+lorem.text()+ lorem.text()+lorem.text()+ lorem.text()
         
         
         # Texto
@@ -70,7 +72,7 @@ def some_view(request):
         
         # Datos de la tabla
         data = [
-            ['Header 1', 'Header 2', 'Header 3'],  # Encabezados
+            [ladrillo, 'Header 2', 'Header 3'],  # Encabezados
             ['Row 1', 'Example 1', 'Example 2'],   # Primera fila
             ['Row 2', 'Example 3', 'Example 4'],   # Segunda fila
             # Añade más filas según sea necesario
